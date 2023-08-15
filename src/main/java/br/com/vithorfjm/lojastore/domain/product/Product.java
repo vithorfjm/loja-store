@@ -57,4 +57,12 @@ public class Product {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
 }
