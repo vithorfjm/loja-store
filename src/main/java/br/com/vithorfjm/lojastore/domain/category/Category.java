@@ -1,4 +1,4 @@
-package br.com.vithorfjm.lojastore.model.category;
+package br.com.vithorfjm.lojastore.domain.category;
 
 import jakarta.persistence.*;
 

@@ -1,6 +1,6 @@
-package br.com.vithorfjm.lojastore.model.product;
+package br.com.vithorfjm.lojastore.domain.product;
 
-import br.com.vithorfjm.lojastore.model.category.Category;
+import br.com.vithorfjm.lojastore.domain.category.Category;
 import jakarta.persistence.*;
 
 @Entity(name = "product")
