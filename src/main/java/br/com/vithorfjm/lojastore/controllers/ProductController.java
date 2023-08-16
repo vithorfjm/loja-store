@@ -1,6 +1,6 @@
 package br.com.vithorfjm.lojastore.controllers;
 
-import br.com.vithorfjm.lojastore.DTO.ProductDTO;
+import br.com.vithorfjm.lojastore.domain.product.ProductDTO;
 import br.com.vithorfjm.lojastore.domain.product.Product;
 import br.com.vithorfjm.lojastore.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;

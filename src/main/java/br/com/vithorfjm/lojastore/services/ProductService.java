@@ -1,6 +1,6 @@
 package br.com.vithorfjm.lojastore.services;
 
-import br.com.vithorfjm.lojastore.DTO.ProductDTO;
+import br.com.vithorfjm.lojastore.domain.product.ProductDTO;
 import br.com.vithorfjm.lojastore.domain.category.Category;
 import br.com.vithorfjm.lojastore.domain.product.Product;
 import br.com.vithorfjm.lojastore.repositories.ProductRepository;
@@ -33,7 +33,6 @@ public class ProductService {
 
     public Product createProduct(ProductDTO data) {
         Category category = categoryService.getCategoryById(data.category_id());
-        System.out.println(category.getCategory());
         Product newProduct = new Product();
         newProduct.setName(data.name());
         newProduct.setPrice(data.price());
