@@ -4,6 +4,7 @@ import br.com.vithorfjm.lojastore.domain.product.ProductDTO;
 import br.com.vithorfjm.lojastore.domain.category.Category;
 import br.com.vithorfjm.lojastore.domain.product.Product;
 import br.com.vithorfjm.lojastore.repositories.ProductRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -40,5 +41,20 @@ public class ProductService {
         newProduct.setCategory(category);
         this.repository.save(newProduct);
         return newProduct;
+    }
+
+    @Transactional
+    public void updateProduct(ProductDTO data) {
+        Optional<Product> optProduct = repository.findById(data.id());
+        if (optProduct.isPresent()) {
+            Category category = categoryService.getCategoryById(data.category_id());
+            Product product = optProduct.get();
+            product.setName(data.name());
+            product.setCategory(category);
+            product.setDescription(data.description());
+            product.setPrice(data.price());
+        } else {
+            throw new RuntimeException();
+        }
     }
 }

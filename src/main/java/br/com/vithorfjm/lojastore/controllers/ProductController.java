@@ -34,4 +34,10 @@ public class ProductController {
         return ResponseEntity.ok(product);
     }
 
+    @PutMapping
+    public ResponseEntity<Product> updateProduct(@RequestBody ProductDTO data) {
+        productService.updateProduct(data);
+        return ResponseEntity.ok().build();
+    }
+
 }
