@@ -57,4 +57,11 @@ public class ProductService {
             throw new RuntimeException();
         }
     }
+
+    @Transactional
+    public void deleteProduct(Long id) {
+        Optional<Product> optProduct = repository.findById(id);
+        if (optProduct.isPresent()) repository.delete(optProduct.get());
+        else throw new RuntimeException();
+    }
 }
