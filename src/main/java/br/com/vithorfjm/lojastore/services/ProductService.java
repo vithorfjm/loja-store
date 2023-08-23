@@ -4,6 +4,7 @@ import br.com.vithorfjm.lojastore.domain.product.ProductDTO;
 import br.com.vithorfjm.lojastore.domain.category.Category;
 import br.com.vithorfjm.lojastore.domain.product.Product;
 import br.com.vithorfjm.lojastore.repositories.ProductRepository;
+import br.com.vithorfjm.lojastore.exceptions.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,11 +26,7 @@ public class ProductService {
     }
 
     public Product getProductById(Long id) {
-        Optional<Product> optProduct = this.repository.findById(id);
-        if (optProduct.isEmpty()) {
-            throw new RuntimeException("Product not found");
-        }
-        return optProduct.get();
+        return repository.findById(id).orElseThrow(() -> new EntityNotFoundException("Product not found"));
     }
 
     public Product createProduct(ProductDTO data) {
@@ -45,23 +42,17 @@ public class ProductService {
 
     @Transactional
     public void updateProduct(ProductDTO data) {
-        Optional<Product> optProduct = repository.findById(data.id());
-        if (optProduct.isPresent()) {
-            Category category = categoryService.getCategoryById(data.category_id());
-            Product product = optProduct.get();
-            product.setName(data.name());
-            product.setCategory(category);
-            product.setDescription(data.description());
-            product.setPrice(data.price());
-        } else {
-            throw new RuntimeException();
-        }
+        Product product = repository.findById(data.id()).orElseThrow(() -> new EntityNotFoundException("Product not found"));
+        Category category = categoryService.getCategoryById(data.category_id());
+        product.setName(data.name());
+        product.setCategory(category);
+        product.setDescription(data.description());
+        product.setPrice(data.price());
     }
 
     @Transactional
     public void deleteProduct(Long id) {
-        Optional<Product> optProduct = repository.findById(id);
-        if (optProduct.isPresent()) repository.delete(optProduct.get());
-        else throw new RuntimeException();
+        Product product = repository.findById(id).orElseThrow(() -> new EntityNotFoundException("Product not found"));
+        repository.delete(product);
     }
 }
